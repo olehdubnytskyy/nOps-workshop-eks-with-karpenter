@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nops-eks-cluster-dev
+  labels:
+    app: nops-eks-cluster-dev
+    component: web
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nops-eks-cluster-dev
+      component: web
+  template:
+    metadata:
+      labels:
+        app: nops-eks-cluster-dev
+        component: web
+    spec:
+      containers:
+        - name: nops-eks-cluster-dev
+          image: vfarcic/devops-toolkit-series
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 1Gi
+      nodeSelector:
+        topology.kubernetes.io/zone: us-east-1a
